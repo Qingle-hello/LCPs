@@ -22,10 +22,10 @@ coarse_solver = @ Lql_C2_Solver_AC;
 % coarse_solver = @ Lql_CR_Solver_AC;
 % coarse_solver = @ Lql_C4_Solver_AC;
 
-% fine_solver = @ Lobatto_IIIC_2_Solver_AC;
+fine_solver = @ Lobatto_IIIC_2_Solver_AC;
 % fine_solver = @ Lobatto_IIIC_3_Solver_AC;
 % fine_solver = @ Radau_IIA_3_Solver_AC;
-fine_solver = @ Lobatto_IIIC_4_Solver_AC;
+% fine_solver = @ Lobatto_IIIC_4_Solver_AC;
 
 
 f = @(u) (u-u.^3)/(ep*ep);
