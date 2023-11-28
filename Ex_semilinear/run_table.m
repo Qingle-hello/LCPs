@@ -14,7 +14,7 @@ TN = 150; J = 20; % three-stage Lobatto
 
 iter_max = min([TN, 10]);
 
-ep = sqrt(0.02);
+ep = sqrt(1);
 
 % coarse_solver = @ I_Euler_Solver_AC;
 coarse_solver = @ Lql_C2_Solver_AC;
