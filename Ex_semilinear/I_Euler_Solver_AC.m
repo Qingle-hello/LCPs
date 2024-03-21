@@ -1,7 +1,6 @@
 function [uend, time1, cut, energy] = I_Euler_Solver_AC(u0, Mass, Stiff, f, f_prime, Tend, tN, F, al, L_fast, U_fast)
 
 xN = length(Mass);
-tN = 1; 
 cut = ones(tN, 1);
 energy = ones(tN+1,1);
 
