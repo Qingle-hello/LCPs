@@ -29,7 +29,8 @@ fine_solver = @ Lobatto_IIIC_4_Solver_AC;
 
 
 f = @(u) (u-u.^3)/(ep*ep);
-f_prime = @(u) ((u./u) - 3 * u.^2) / (ep*ep);
+f_prime = @(u) (ones(size(u)) - 3 * u.^2) / (ep*ep);
+
 F = @(u) (u.^2-1).^2/(4*ep*ep);
 % f = @(u) 0*u;
 % F = @(u) 0*u;
@@ -38,6 +39,7 @@ al = 1;
 
 get_u0 = @(x) (  (x<=pi/2).*1 + (x>pi/2).*(-1));
 
+tN = 5;% delta t for coarse step size
 tn = TN * J;
 TAU = T / TN;
 tau = T / tn;
@@ -65,7 +67,7 @@ for k = 1 : TN
     fprintf("sequential solution: k=%d\t%f\n", k, toc)
     % u_seq(:,k+1) = fine_solver(u_seq(:,k), Mass, Stiff, f, f_prime, TAU, J, F, al);
     % initialization
-    [u_para(:, k+1),time_total(1,k)] = coarse_solver(u_para(:, k), Mass, Stiff, f, f_prime, TAU, 5, F, al, L_c,U_c);
+    [u_para(:, k+1),time_total(1,k)] = coarse_solver(u_para(:, k), Mass, Stiff, f, f_prime, TAU, tN, F, al, L_c,U_c);
     % u_para(:, k+1) = u0;
 end
 
@@ -94,8 +96,8 @@ for m = 1:iter_max
 
     for k = 1 : TN
         u_para_new(:, k+1) = ...
-            coarse_solver(u_para_new(:, k), Mass, Stiff, f, f_prime, TAU, 5, F, al, L_c,U_c) ...
-            - coarse_solver(u_para(:, k), Mass, Stiff, f, f_prime, TAU, 5, F, al, L_c,U_c) ...
+            coarse_solver(u_para_new(:, k), Mass, Stiff, f, f_prime, TAU, tN, F, al, L_c,U_c) ...
+            - coarse_solver(u_para(:, k), Mass, Stiff, f, f_prime, TAU, tN, F, al, L_c,U_c) ...
             + u_temp(:,k+1);
     end
     u_para = u_para_new;
